@@ -10,9 +10,59 @@ let parser = parse({
 }, (err, data) => {
 
   //just work with the first row
-  let item = data[605]
+  let item = data[1]
   let subset = item[42]
-  subsetNote(item[41], item[42])
+  let imgRange = imageRange(subset)
+  let slidesList = []
+
+  for (let imageNumber = imgRange.low; imageNumber <= imgRange.high; imageNumber++) {
+    let slide = {}
+    slide['Title'] = `${item[4]}_${pad(imageNumber)}`
+    slide['Creator'] = 'The University of Iowa; The Crowley Company'
+    slide['Date Original'] = item[2]
+    slide['Subset(Note)'] = subsetNote(item[41], item[42])
+    slide['Header'] = item[4]
+    slide['Sport'] = item[5]
+    slide['Gender'] = item[6]
+    slide['Topical Subject'] = item[7]
+    slide['Geographic Subject'] = item[8]
+    slide['Chronological Subject'] = item[9]
+    slide['Source'] = 'Color slides'
+    slide['Type(IMT)'] = 'image/tiff'
+    slide['Type(DCMITYPE)'] = 'Still image'
+    slide['Type(AAT)'] = 'Photographs'
+    slide['Digital Collection'] = 'Hawkeyes Athletic Slides'
+    slide['Contributing Institution'] = 'University of Iowa.  Libraries.  University Archives'
+    slide['Archival Collection'] = 'Center for Media Production Photographic Service Slide Collection'
+    slide['Collection Identifier'] = 'RG30_0002_009'
+    slide['Rights Management'] = 'Copyright © The University of Iowa 2015.  All rights reserved.'
+    slide['Contact Information'] = 'Contact the University Archives at the University of Iowa: http://www.lib.uiowa.edu/sc/contact/'
+    slide['Sublocation'] = item[21]
+    slide['SportsSeasonURI'] = item[22]
+    slide['SportsEventID'] = item[23]
+    slide['Series'] = item[24]
+    slide['Corporate Name Subject'] = 'University of Iowa'
+    slide['Date Digital'] = item[26]
+    slide['Latitude'] = '' 
+    slide['Longitude'] = '' 
+    slide['Personal name'] = '' 
+    slide['Collection Guide'] = '' 
+    slide['Folder'] = '' 
+    slide['Folder name'] = '' 
+    slide['Category'] = '' 
+    slide['Image Height'] = '' 
+    slide['Image Width'] = '' 
+    slide['Duration'] = ''
+    slide['Digitization Specifications'] = ''
+    slide['Image Number'] = ''
+    slide['Object File Name'] = `${item[40]}_${pad(imageNumber)}.tif`
+
+
+    console.log(slide)
+    
+    
+  }
+  //subsetNote(item[41], item[42])
 
 
 
@@ -41,10 +91,10 @@ function imageRange(subset) {
 
 function subsetNote(caseTray, subset) {
   let caseTraySplit = _.split(caseTray, '/')
-  let caseNum = caseTraySplit[0]
-  let trayNum = caseTraySplit[1]
+  let caseNum = caseTraySplit[0].replace(/\s/g, '')
+  let trayNum = caseTraySplit[1].replace(/\s/g, '')
 
-  let note = `Case-${caseNum}-Tray${trayNum}-Slide${subset}`
+  let note = `Case ${caseNum}-Tray ${trayNum}-Slide ${subset}`
 
   return note
   
