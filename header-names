@@ -16,7 +16,6 @@
 'Contributing Institution',
 'Archival Collection',
 'Collection Identifier',
-'Barcode',
 'Rights Management',
 'Contact Information',
 'Sublocation',
@@ -37,10 +36,4 @@
 'Duration',
 'Digitization Specifications',
 'Image Number',
-'Object File Name',
-'Box Barcode',
-'Case / Tray',
-'Sub-set'
-
-Case 1-Tray 1-Slide001-128
-Case 1-Tray 1-Slide 001-128
+'Object File Name'
