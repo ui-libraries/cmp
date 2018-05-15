@@ -1,9 +1,12 @@
 let fileName = 'cmp1.csv'
 
-let _ = require('lodash')
-let csv = require('csv')
-let fs = require('fs')
-let parse = require('csv-parse')
+const _ = require('lodash')
+const fs = require('fs')
+const parse = require('csv-parse')
+const json2csv = require('json2csv').Parser
+const fields = ['Title','Creator','Date Original','Subset(Note)','Header','Sport','Gender','Topical Subject','Geographic Subject','Chronological Subject','Source','Type(IMT)','Type(DCMITYPE)','Type(AAT)','Digital Collection','Contributing Institution','Archival Collection','Collection Identifier','Rights Management','Contact Information','Sublocation','SportsSeasonURI','SportsEventID','Series','Corporate Name Subject','Date Digital','Latitude','Longitude','Personal name','Collection Guide','Folder','Folder name','Category','Image Height','Image Width','Duration','Digitization Specifications','Image Number','Object File Name']
+const opts = { fields }
+const csvParser = new json2csv(opts)
 
 let parser = parse({
   delimiter: ','
@@ -17,6 +20,7 @@ let parser = parse({
 
   for (let imageNumber = imgRange.low; imageNumber <= imgRange.high; imageNumber++) {
     let slide = {}
+    
     slide['Title'] = `${item[4]}_${pad(imageNumber)}`
     slide['Creator'] = 'The University of Iowa; The Crowley Company'
     slide['Date Original'] = item[2]
@@ -57,13 +61,18 @@ let parser = parse({
     slide['Image Number'] = ''
     slide['Object File Name'] = `${item[40]}_${pad(imageNumber)}.tif`
 
-
-    console.log(slide)
-    
-    
+    slidesList.push(slide)    
   }
-  //subsetNote(item[41], item[42])
 
+  const csv = csvParser.parse(slidesList)
+  
+  fs.writeFile('/Users/mtbutler/Desktop/sample-cmp.csv', csv, 'utf8', function (err) {
+    if (err) {
+      console.log('error');
+    } else {
+      console.log('worked');
+    }
+  })
 
 
 })
