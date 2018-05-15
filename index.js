@@ -4,7 +4,7 @@ const _ = require('lodash')
 const fs = require('fs')
 const parse = require('csv-parse')
 const json2csv = require('json2csv').Parser
-const fields = ['Title','Creator','Date Original','Subset(Note)','Header','Sport','Gender','Topical Subject','Geographic Subject','Chronological Subject','Source','Type(IMT)','Type(DCMITYPE)','Type(AAT)','Digital Collection','Contributing Institution','Archival Collection','Collection Identifier','Rights Management','Contact Information','Sublocation','SportsSeasonURI','SportsEventID','Series','Corporate Name Subject','Date Digital','Latitude','Longitude','Personal name','Collection Guide','Folder','Folder name','Category','Image Height','Image Width','Duration','Digitization Specifications','Image Number','Object File Name']
+const fields = ['Title','Creator','Date Original','Subset(Note)','Header','Sport','Gender','Topical Subject','Geographic Subject','Chronological Subject','Source','Type(IMT)','Type(DCMITYPE)','Type(AAT)','Digital Collection','Contributing Institution','Archival Collection','Collection Identifier','Barcode','Rights Management','Contact Information','Sublocation','SportsSeasonURI','SportsEventID','Series','Corporate Name Subject','Date Digital','Latitude','Longitude','Personal name','Collection Guide','Folder','Folder name','Category','Image Height','Image Width','Duration','Digitization Specifications','Image Number','Object File Name']
 const opts = { fields }
 const csvParser = new json2csv(opts)
 
@@ -36,9 +36,10 @@ let parser = parse({
     slide['Type(DCMITYPE)'] = 'Still image'
     slide['Type(AAT)'] = 'Photographs'
     slide['Digital Collection'] = 'Hawkeyes Athletic Slides'
-    slide['Contributing Institution'] = 'University of Iowa.  Libraries.  University Archives'
+    slide['Contributing Institution'] = 'University of Iowa. Libraries. University Archives'
     slide['Archival Collection'] = 'Center for Media Production Photographic Service Slide Collection'
     slide['Collection Identifier'] = 'RG30_0002_009'
+    slide['Barcode'] = item[18]
     slide['Rights Management'] = 'Copyright © The University of Iowa 2015.  All rights reserved.'
     slide['Contact Information'] = 'Contact the University Archives at the University of Iowa: http://www.lib.uiowa.edu/sc/contact/'
     slide['Sublocation'] = item[21]
@@ -66,7 +67,7 @@ let parser = parse({
 
   const csv = csvParser.parse(slidesList)
   
-  fs.writeFile('/Users/mtbutler/Desktop/sample-cmp.csv', csv, 'utf8', function (err) {
+   fs.writeFile('/Users/mtbutler/Desktop/sample-cmpv2.csv', csv, 'utf8', function (err) {
     if (err) {
       console.log('error');
     } else {
