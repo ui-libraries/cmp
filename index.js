@@ -66,9 +66,9 @@ let parser = parse({
 
     const csv = csvParser.parse(slidesList)
     
-    fs.writeFile('/Users/mtbutler/Desktop/cmp-files/'+fileName+'.txt', csv, 'utf8', function (err) {
+    fs.writeFile('/Users/mtbutler/Desktop/tabbed-text/'+fileName+'.txt', csv, 'utf8', function (err) {
       if (err) {
-        console.log('error');
+        console.log('error', err);
       } else {
         console.log('worked');
       }
